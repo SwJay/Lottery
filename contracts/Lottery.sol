@@ -10,14 +10,13 @@ contract Lottery{
     }
 
     Ticket[] public ticket_history; // all tickets ascending by time
-    address public owner; // banker
+    address owner; // banker
     uint head; // head ticket for current round
     uint interval; // interval between each drawing
     uint drawTime; // upcoming drawing time
     uint prizeValue; // value for one ticket
     uint prizeNumber; // wining number in a round
-    address[] public winners; // all winners in a round
-    uint balance;
+    address[] winners; // all winners in a round
 
     // restrict for contract owner
     modifier onlyByOwner() { 
@@ -46,7 +45,6 @@ contract Lottery{
         drawTime = now + interval;
         prizeValue = 1 wei;
         prizeNumber = 0;
-        balance = 0;
     }
 
     // @dev Bet.
@@ -55,11 +53,10 @@ contract Lottery{
     function bet(uint number) public payable restrictBet() returns (uint ticket_id) {
         ticket_id = ticket_history.length++;
         ticket_history[ticket_id] = Ticket(msg.sender, number, State.pending);
-        balance += msg.value;
     }
 
     // @dev Draw the lottery
-    function draw() public returns (bool) {
+    function draw() public returns (uint) {
         delete winners;
         prizeNumber = uint(blockhash(block.number)) % 3; // randomness
 
@@ -72,16 +69,12 @@ contract Lottery{
                 ticket_history[head].state = State.no_prize;
             }
         }
-
-        //owner.transfer(balance);
-        if(owner != ticket_history[0].player){
-            ticket_history[0].player.transfer(balance);
+       
+        for(uint i = 0; i < winners.length; i++){
+            winners[i].transfer(address(this).balance / winners.length);
         }
-        // for(uint i = 0; i < winners.length; i++){
-        //     winners[i].transfer(address(this).balance / winners.length);
-        // }
 
         drawTime = now + interval;
-        return winners[0] == owner;
+        return address(this).balance;
     }
 }

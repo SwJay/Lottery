@@ -8,19 +8,21 @@ contract TestLottery {
     Lottery lottery = Lottery(DeployedAddresses.Lottery());
     uint public initialBalance = 4 wei;
 
+    function () public payable {}
+
     function testBet() public {
         lottery.bet.value(1 wei)(123);
-        address a;
-        a = lottery.owner();
-        Assert.equal(a, address(this), "wrong!");
+        uint expect;
+        (,expect,) = lottery.ticket_history(0);
+        Assert.equal(expect, 123, "wrong!");
     }
 
     function testDraw() public {
         lottery.bet.value(1 wei)(0);
         lottery.bet.value(1 wei)(1);
         lottery.bet.value(1 wei)(2);
-        bool result = lottery.draw();
-        Assert.equal(result, true, "wrong");
+        uint result = lottery.draw();
+        Assert.equal(result, 0, "wrong");
     }
 
 }
