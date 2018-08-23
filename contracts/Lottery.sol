@@ -1,6 +1,9 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
+/**
+ * TODO: change dependece of random oracle from block to players(require changes on transaction process).
+ */
 contract Lottery{
     enum State { bingo, no_prize, pending} // state for a ticket
     
@@ -70,7 +73,7 @@ contract Lottery{
     // @dev Draw the lottery
     function draw() public returns (uint) {
         delete winners;
-        prizes[prizes.length - 1].winners = uint(blockhash(block.number)) % 3; // randomness
+        prizes[prizes.length - 1].winningNumber = uint(blockhash(block.number)) % 3; // random oracle remains modification
         prizes[prizes.length - 1].pool = address(this).balance;
         // search for winners
         for(; head < tickets.length; head++){
@@ -90,7 +93,7 @@ contract Lottery{
         prizes[prizes.length - 1].winners = winners.length;
         prizes[prizes.length++] = Prize(0, 0, 0);
         drawTime = now + interval;
-        return address(this).balance;
+        return prizes[prizes.length - 2].winningNumber;
     }
 
     // @dev show current result.
