@@ -1,4 +1,5 @@
 pragma solidity ^0.4.24;
+pragma experimental ABIEncoderV2;
 
 contract Lottery{
     enum State { bingo, no_prize, pending} // state for a ticket
@@ -9,13 +10,21 @@ contract Lottery{
         State state; // the state
     }
 
-    Ticket[] public ticket_history; // all tickets ascending by time
+    struct Prize {
+        uint winningNumber;
+        uint pool;
+        uint winners;
+    }
+
+    Ticket[] public tickets; // all tickets ascending by time
+    Prize[] prizes; // prizes for each round
+    mapping (address => uint[]) addressBook; // holds the mapping between address and ticket indices
     address owner; // banker
-    uint head; // head ticket for current round
     uint interval; // interval between each drawing
-    uint drawTime; // upcoming drawing time
     uint prizeValue; // value for one ticket
-    uint prizeNumber; // wining number in a round
+
+    uint drawTime; // upcoming drawing time
+    uint head; // head ticket for current round
     address[] winners; // all winners in a round
 
     // restrict for contract owner
@@ -44,37 +53,64 @@ contract Lottery{
         interval = 1 minutes;
         drawTime = now + interval;
         prizeValue = 1 wei;
-        prizeNumber = 0;
+        prizes[prizes.length++] = Prize(0, 0, 0);
     }
+
+    function () public payable {}
 
     // @dev Bet.
     // @para number The number you choose to bet.
     // @return ticket_id Corresponding id for this ticket.
     function bet(uint number) public payable restrictBet() returns (uint ticket_id) {
-        ticket_id = ticket_history.length++;
-        ticket_history[ticket_id] = Ticket(msg.sender, number, State.pending);
+        ticket_id = tickets.length++;
+        tickets[ticket_id] = Ticket(msg.sender, number, State.pending);
+        addressBook[msg.sender].push(ticket_id);
     }
 
     // @dev Draw the lottery
     function draw() public returns (uint) {
         delete winners;
-        prizeNumber = uint(blockhash(block.number)) % 3; // randomness
-
-        for(; head < ticket_history.length; head++){
-            if(ticket_history[head].lottery == prizeNumber){ // bingo
-                ticket_history[head].state = State.bingo;
-                winners[winners.length++] = ticket_history[head].player;
+        prizes[prizes.length - 1].winners = uint(blockhash(block.number)) % 3; // randomness
+        prizes[prizes.length - 1].pool = address(this).balance;
+        // search for winners
+        for(; head < tickets.length; head++){
+            if(tickets[head].lottery == prizes[prizes.length - 1].winningNumber ){ // bingo
+                tickets[head].state = State.bingo;
+                winners[winners.length++] = tickets[head].player;
             }
             else{ // no prize
-                ticket_history[head].state = State.no_prize;
+                tickets[head].state = State.no_prize;
             }
         }
-       
+        // give out bonus
         for(uint i = 0; i < winners.length; i++){
             winners[i].transfer(address(this).balance / winners.length);
         }
 
+        prizes[prizes.length - 1].winners = winners.length;
+        prizes[prizes.length++] = Prize(0, 0, 0);
         drawTime = now + interval;
         return address(this).balance;
+    }
+
+    // @dev show current result.
+    // @return Prize(winningNumber, pool, winners)
+    function showCurrentResult() public view returns (Prize) {
+        return (prizes[prizes.length - 1]);
+    }
+    
+    // @dev show history results.
+    // @return Prize[]
+    function showHistoryResults() public view returns (Prize[]) {
+        return prizes;
+    }
+
+    // @dev show tickets by one's address
+    // @return Tickets[]
+    function showByAddress() public view returns (Ticket[] memory results) {
+        results = new Ticket[](addressBook[msg.sender].length);
+        for(uint i = 0; i < addressBook[msg.sender].length; i++){
+            results[i] = tickets[addressBook[msg.sender][i]];
+        }
     }
 }

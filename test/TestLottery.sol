@@ -13,7 +13,7 @@ contract TestLottery {
     function testBet() public {
         lottery.bet.value(1 wei)(123);
         uint expect;
-        (,expect,) = lottery.ticket_history(0);
+        (,expect,) = lottery.tickets(0);
         Assert.equal(expect, 123, "wrong!");
     }
 
