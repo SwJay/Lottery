@@ -1,6 +1,8 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
+import "./Oracle.sol";
+
 /**
  * TODO: change dependece of random oracle from block to players(require changes on transaction process).
  */
@@ -19,10 +21,11 @@ contract Lottery{
         uint winners;
     }
 
+    Oracle oracle;
     Ticket[] public tickets; // all tickets ascending by time
     Prize[] prizes; // prizes for each round
     mapping (address => uint[]) addressBook; // holds the mapping between address and ticket indices
-    address owner; // banker
+    address owner; // house
     uint interval; // interval between each drawing
     uint prizeValue; // value for one ticket
 
@@ -50,7 +53,8 @@ contract Lottery{
     }
 
     // constructor
-    constructor () public {
+    constructor (address oracleAddress) public {
+        oracle = Oracle(oracleAddress);
         owner = msg.sender;
         head = 0;
         interval = 1 minutes;
@@ -73,11 +77,11 @@ contract Lottery{
     // @dev Draw the lottery
     function draw() public returns (uint) {
         delete winners;
-        prizes[prizes.length - 1].winningNumber = uint(blockhash(block.number)) % 3; // random oracle remains modification
-        prizes[prizes.length - 1].pool = address(this).balance;
+        uint winningNumber = oracle.getRandom(); // RNG
+        uint pool = address(this).balance;
         // search for winners
         for(; head < tickets.length; head++){
-            if(tickets[head].lottery == prizes[prizes.length - 1].winningNumber ){ // bingo
+            if(tickets[head].lottery == winningNumber ){ // bingo
                 tickets[head].state = State.bingo;
                 winners[winners.length++] = tickets[head].player;
             }
@@ -90,10 +94,9 @@ contract Lottery{
             winners[i].transfer(address(this).balance / winners.length);
         }
 
-        prizes[prizes.length - 1].winners = winners.length;
-        prizes[prizes.length++] = Prize(0, 0, 0);
+        prizes[prizes.length++] = Prize(winningNumber, pool, winners.length);
         drawTime = now + interval;
-        return prizes[prizes.length - 2].winningNumber;
+        return prizes[prizes.length - 1].winningNumber;
     }
 
     // @dev show current result.
@@ -116,4 +119,5 @@ contract Lottery{
             results[i] = tickets[addressBook[msg.sender][i]];
         }
     }
+
 }

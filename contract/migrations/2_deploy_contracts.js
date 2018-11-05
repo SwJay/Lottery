@@ -1,0 +1,8 @@
+var Oracle = artifacts.require("./Oracle.sol");
+var Lottery = artifacts.require("./Lottery.sol");
+
+module.exports = function(deployer) {
+  deployer.deploy(Oracle).then(function() {
+    return deployer.deploy(Lottery, Oracle.address);
+  });
+};
