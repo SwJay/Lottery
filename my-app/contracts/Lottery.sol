@@ -53,9 +53,9 @@ contract Lottery{
     constructor () public {
         croupier = msg.sender;
         head = 0;
-        interval = 10 hours;
+        interval = 1 hours;
         drawTime = now + interval;
-        prizeValue = 1 ether;
+        prizeValue = 0.1 ether;
         prizes[prizes.length++] = Prize(0, 0, 0);
     }
 
@@ -71,11 +71,11 @@ contract Lottery{
     }
 
     function getRandom() private view returns (uint rand){
-        return block.timestamp % 2;
+        return block.timestamp % 100;
     }
 
     // @dev Draw the lottery
-    function draw() public returns (uint) {
+    function draw() public restrictDraw() returns (uint) {
         delete winners;
         uint winningNumber = getRandom(); // RNG
         uint pool = address(this).balance;
@@ -136,8 +136,4 @@ contract Lottery{
             state[i] = uint(tickets[addressBook[msg.sender][i]].state);
         }
     }
-
-
-
-
 }

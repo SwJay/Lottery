@@ -40,9 +40,9 @@ class App extends Component {
           <h1 className="App-title">Welcome to Lottery Game</h1>
         </header>
         <div className="App-content">
-          <Form className="App-form"/>        
+          <Form className="App-form"/>
           <p className="App-intro">
-            *bet 1 eth on any integer from 0 to 100.
+            *bet 0.1 eth on any integer from 0 to 100.
           </p>
         </div>
       </div>

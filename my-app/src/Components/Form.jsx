@@ -39,15 +39,16 @@ class Form extends Component {
     Bet(){
       const contract = require('truffle-contract');
       const Lottery = contract(LotteryContract);
+      const contracAddress = "0xa24fC97c77013705e42ac23FB2593C49236B94c4";
       Lottery.setProvider(this.state.web3.currentProvider);
       var LotteryInstance;
       this.state.web3.eth.getAccounts((error, accounts) => {
-          Lottery.deployed().then((instance) => {
+          Lottery.at(contracAddress).then((instance) => {
             LotteryInstance = instance
           }).then((result) => {
             // Get the value from the contract to prove it worked.
             return LotteryInstance.bet(this.state.num, {from: accounts[0],
-            value: 1000000000000000000})
+            value: 100000000000000000})
           }).catch(() => {
             console.log("Error with Lottery")
           })
@@ -61,10 +62,11 @@ class Form extends Component {
     ShowByAddress(){
       const contract = require('truffle-contract');
       const Lottery = contract(LotteryContract);
+      const contracAddress = "0xa24fC97c77013705e42ac23FB2593C49236B94c4";
       Lottery.setProvider(this.state.web3.currentProvider);
       var LotteryInstance;
       this.state.web3.eth.getAccounts((error, accounts) => {
-        Lottery.deployed().then((instance) => {
+        Lottery.at(contracAddress).then((instance) => {
           LotteryInstance = instance
         }).then((result) => {
           // Get the value from the contract to prove it worked.

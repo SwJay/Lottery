@@ -5,6 +5,7 @@
   "dependencies": {
     "ethereumjs-wallet": "^0.6.2",
     "react": "^16.5.2",
+    "react-countdown-clock": "^2.5.0",
     "react-dom": "^16.5.2",
     "react-scripts": "1.1.5",
     "truffle-contract": "^3.0.6",
@@ -12,6 +13,7 @@
     "web3": "^1.0.0-beta.36"
   },
   "scripts": {
+    "homepage": ".",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

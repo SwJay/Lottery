@@ -1,0 +1,112 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "number",
+				"type": "uint256"
+			}
+		],
+		"name": "bet",
+		"outputs": [
+			{
+				"name": "ticket_id",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "draw",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "showByAddress",
+		"outputs": [
+			{
+				"name": "time",
+				"type": "uint256[]"
+			},
+			{
+				"name": "lottery",
+				"type": "uint256[]"
+			},
+			{
+				"name": "state",
+				"type": "uint256[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "showCurrentResult",
+		"outputs": [
+			{
+				"name": "winningNumber",
+				"type": "uint256"
+			},
+			{
+				"name": "pool",
+				"type": "uint256"
+			},
+			{
+				"name": "winnersNum",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "showHistoryResults",
+		"outputs": [
+			{
+				"name": "winningNumberArray",
+				"type": "uint256[]"
+			},
+			{
+				"name": "poolArray",
+				"type": "uint256[]"
+			},
+			{
+				"name": "winnersArray",
+				"type": "uint256[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
