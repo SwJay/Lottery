@@ -6,14 +6,16 @@ const web3 = require('web3');
 // const app = express();
 
 // Infura HttpProvider Endpoint
-web3js = new web3(new web3.providers.HttpProvider("https://ropsten.infura.io/ca26ad0352634c82948dca4688a4557b"));
+web3js = new web3(new web3.providers.HttpProvider(""));
 
 setInterval(function(req,res){
 
-
+    var myAddress = "";
+    var privateKey = "";
     //contract abi is the array that you can get from the ethereum wallet or etherscan
     var contractABI = MyContract;
     var contractAddress ="0xa24fC97c77013705e42ac23FB2593C49236B94c4";
+    
     //creating contract object
     var contract = new web3js.eth.Contract(contractABI,contractAddress);
 

@@ -48,7 +48,7 @@ class Form extends Component {
           }).then((result) => {
             // Get the value from the contract to prove it worked.
             return LotteryInstance.bet(this.state.num, {from: accounts[0],
-            value: 100000000000000000})
+            value: 1e17})
           }).catch(() => {
             console.log("Error with Lottery")
           })
