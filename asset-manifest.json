@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Lottery/static/css/main.7e3f6520.chunk.css",
+    "main.js": "/Lottery/static/js/main.052ada12.chunk.js",
+    "main.js.map": "/Lottery/static/js/main.052ada12.chunk.js.map",
+    "runtime~main.js": "/Lottery/static/js/runtime~main.99e1bf7c.js",
+    "runtime~main.js.map": "/Lottery/static/js/runtime~main.99e1bf7c.js.map",
+    "static/js/2.db8ad3d7.chunk.js": "/Lottery/static/js/2.db8ad3d7.chunk.js",
+    "static/js/2.db8ad3d7.chunk.js.map": "/Lottery/static/js/2.db8ad3d7.chunk.js.map",
+    "index.html": "/Lottery/index.html",
+    "precache-manifest.c8ef6f08d46ac522c6d4fd61a5e04093.js": "/Lottery/precache-manifest.c8ef6f08d46ac522c6d4fd61a5e04093.js",
+    "service-worker.js": "/Lottery/service-worker.js",
+    "static/css/main.7e3f6520.chunk.css.map": "/Lottery/static/css/main.7e3f6520.chunk.css.map",
+    "static/media/logo.svg": "/Lottery/static/media/logo.6f9316c1.svg"
+  }
+}
