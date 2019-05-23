@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Lottery/static/css/main.7e3f6520.chunk.css",
-    "main.js": "/Lottery/static/js/main.423a58fd.chunk.js",
-    "main.js.map": "/Lottery/static/js/main.423a58fd.chunk.js.map",
+    "main.js": "/Lottery/static/js/main.7d8ec401.chunk.js",
+    "main.js.map": "/Lottery/static/js/main.7d8ec401.chunk.js.map",
     "runtime~main.js": "/Lottery/static/js/runtime~main.99e1bf7c.js",
     "runtime~main.js.map": "/Lottery/static/js/runtime~main.99e1bf7c.js.map",
     "static/js/2.1b172c30.chunk.js": "/Lottery/static/js/2.1b172c30.chunk.js",
     "static/js/2.1b172c30.chunk.js.map": "/Lottery/static/js/2.1b172c30.chunk.js.map",
     "index.html": "/Lottery/index.html",
-    "precache-manifest.5445695356c3ee97fcb8514a4cd0c95b.js": "/Lottery/precache-manifest.5445695356c3ee97fcb8514a4cd0c95b.js",
+    "precache-manifest.65d259d54a12f48cb4ee2f96db4e909a.js": "/Lottery/precache-manifest.65d259d54a12f48cb4ee2f96db4e909a.js",
     "service-worker.js": "/Lottery/service-worker.js",
     "static/css/main.7e3f6520.chunk.css.map": "/Lottery/static/css/main.7e3f6520.chunk.css.map",
     "static/media/logo.svg": "/Lottery/static/media/logo.6f9316c1.svg"
