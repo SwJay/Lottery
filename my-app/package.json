@@ -1,22 +1,37 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "https://SwJay.github.io/Lottery",
   "private": true,
   "dependencies": {
-    "ethereumjs-wallet": "^0.6.2",
-    "react": "^16.5.2",
-    "react-countdown-clock": "^2.5.0",
-    "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5",
-    "truffle-contract": "^3.0.6",
+    "ethereumjs-wallet": "^0.6.3",
+    "react": "^16.8.6",
+    "react-countdown-clock": "^2.6.0",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "truffle-contract": "^4.0.16",
     "truffle-wallet-provider": "0.0.5",
-    "web3": "^1.0.0-beta.36"
+    "web3": "^1.0.0-beta.37"
   },
   "scripts": {
     "homepage": ".",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build", 
+    "deploy": "gh-pages -d build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

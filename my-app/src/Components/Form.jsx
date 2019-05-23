@@ -48,7 +48,7 @@ class Form extends Component {
           }).then((result) => {
             // Get the value from the contract to prove it worked.
             return LotteryInstance.bet(this.state.num, {from: accounts[0],
-            value: 1e17})
+            value: 1e17, gasLimit:7600027, gasPrice:5e9})
           }).catch(() => {
             console.log("Error with Lottery")
           })
@@ -87,9 +87,9 @@ class Form extends Component {
       for (const i in this.state.time) {
         lotteries.push(
           <div>
-            <div className="App-list">time: {this.state.time[i].c}</div>
-            <div className="App-list">lottery: {this.state.lottery[i].c}</div>
-            <div className="App-list">state: {this.state.state[i].c}</div>
+            <div className="App-list">time: {this.state.time[i].words[0]}</div>
+            <div className="App-list">lottery: {this.state.lottery[i].words[0]}</div>
+            <div className="App-list">state: {this.state.state[i].words[0]}</div>
             <hr/>
           </div>
         )
