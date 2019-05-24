@@ -85,11 +85,23 @@ class Form extends Component {
     render(){
       const lotteries = []
       for (const i in this.state.time) {
+        var state;
+        switch(this.state.state[i].words[0]){
+          case 0:
+            state = "win!";
+            break;
+          case 1:
+            state = "no prize";
+            break;
+          case 2:
+            state = "pending";
+            break;
+        }
         lotteries.push(
           <div>
             <div className="App-list">time: {this.state.time[i].words[0]}</div>
             <div className="App-list">lottery: {this.state.lottery[i].words[0]}</div>
-            <div className="App-list">state: {this.state.state[i].words[0]}</div>
+            <div className="App-list">state: {state}</div>
             <hr/>
           </div>
         )
